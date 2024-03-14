@@ -1,0 +1,39 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+#  the data set is still did't add 
+data = pd.read_csv("Top 500 songs")
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Basic data statistics
+print("Basic Data Statistics:")
+print(df.describe())
+
+# Correlation analysis
+print("\nCorrelation Analysis:")
+correlation_matrix = df.corr()
+print(correlation_matrix)
+
+# Data visualization
+# Histogram of song scores
+plt.figure(figsize=(8, 6))
+sns.histplot(df['Score'], bins=10, kde=True)
+plt.title('Distribution of Song Scores')
+plt.xlabel('Score')
+plt.ylabel('Frequency')
+plt.show()
+
+# Bar plot of top 10 artists by song count
+plt.figure(figsize=(10, 6))
+top_artists = df['Artist'].value_counts().head(10)
+sns.barplot(x=top_artists.index, y=top_artists.values)
+plt.title('Top 10 Artists by Song Count')
+plt.xlabel('Artist')
+plt.ylabel('Number of Songs')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()

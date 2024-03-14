@@ -1,0 +1,30 @@
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+
+
+#  A sample dataset
+data = {
+    'Rank': [1, 2, 3, 4, 5],
+    'Song': ['Like a Rolling Stone', 'Satisfaction', 'Imagine', 'What\'s Going On', 'Respect'],
+    'Artist': ['Bob Dylan', 'The Rolling Stones', 'John Lennon', 'Marvin Gaye', 'Aretha Franklin'],
+    'Year': [1965, 1965, 1971, 1971, 1967],
+    'Score': [100, 99, 98, None, 97]
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Data cleaning
+# Remove rows with missing values
+df_cleaned = df.dropna()
+
+# Data normalization
+# Normalize numerical columns
+scaler = MinMaxScaler()
+numerical_columns = ['Rank', 'Year', 'Score']
+df_normalized = df_cleaned.copy()
+df_normalized[numerical_columns] = scaler.fit_transform(df_normalized[numerical_columns])
+
+# Display cleaned and normalized data
+print("Cleaned and Normalized Data:")
+print(df_normalized)

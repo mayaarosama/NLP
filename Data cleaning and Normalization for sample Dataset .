@@ -18,6 +18,9 @@ df = pd.DataFrame(data)
 # Remove rows with missing values
 df_cleaned = df.dropna()
 
+#Remove duplicates 
+df_remove_duplicates=df.drop_duplicates()
+
 # Data normalization
 # Normalize numerical columns
 scaler = MinMaxScaler()
@@ -25,8 +28,7 @@ numerical_columns = ['Rank', 'Year', 'Score']
 df_normalized = df_cleaned.copy()
 df_normalized[numerical_columns] = scaler.fit_transform(df_normalized[numerical_columns])
 
-#Remove duplicates 
-df_remove_duplicates=df.drop_duplicates()
+
 
 # Display cleaned and normalized data
 print("Cleaned and Normalized Data:")

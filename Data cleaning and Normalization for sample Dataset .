@@ -25,6 +25,9 @@ numerical_columns = ['Rank', 'Year', 'Score']
 df_normalized = df_cleaned.copy()
 df_normalized[numerical_columns] = scaler.fit_transform(df_normalized[numerical_columns])
 
+#remove duplicates 
+df_remove_duplicates=df.drop_duplicates()
+
 # Display cleaned and normalized data
 print("Cleaned and Normalized Data:")
 print(df_normalized)

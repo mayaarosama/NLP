@@ -2,31 +2,48 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
 
-#  A sample dataset
-data = {
-    'Rank': [1, 2, 3, 4, 5],
-    'Song': ['Like a Rolling Stone', 'Satisfaction', 'Imagine', 'What\'s Going On', 'Respect'],
-    'Artist': ['Bob Dylan', 'The Rolling Stones', 'John Lennon', 'Marvin Gaye', 'Aretha Franklin'],
-    'Year': [1965, 1965, 1971, 1971, 1967],
-    'Score': [100, 99, 98, None, 97]
-}
+
+# uploading csv file 
+df = pd.read_csv('Top_500_Songs.csv')
+df.head()
+
+
+#clean and balance data
+df.isnull().sum()
 
 # Create DataFrame
-df = pd.DataFrame(data)
+#df = pd.DataFrame(data)
 
 # Data cleaning
 # Remove rows with missing values
-df_cleaned = df.dropna()
+df = df.dropna(inplace=True)
+df.isnull().sum()
 
-#Remove duplicates 
-df_remove_duplicates=df.drop_duplicates()
+df = pd.DataFrame()
+df= df.dropna().drop_duplicates()
 
+
+#Convert 'release_date' column to datetime format
+df['released'] = pd.to_datetime(df['released'])
+
+
+
+
+#save the cleaned data
+df.to_csv('cleaned_Top_500_Songs.csv', index=False)
+
+import csv 
+with open('cleaned_Top_500_Songs.csv') as csv_file:
+   
+   csv_reader = csv.DictReader(csv_file)
+   dict_from_csv = dict(list(csv_reader)[8])
+   list_of_column = list(dict_from_csv.keys())
 # Data normalization
 # Normalize numerical columns
-scaler = MinMaxScaler()
-numerical_columns = ['Rank', 'Year', 'Score']
-df_normalized = df_cleaned.copy()
-df_normalized[numerical_columns] = scaler.fit_transform(df_normalized[numerical_columns])
+   scaler = MinMaxScaler()
+#numerical_columns = ['Rank', 'Year', 'Score']
+   df_normalized = df.copy()
+   df_normalized[list_of_column] = scaler.fit_transform(df_normalized[list_of_column])
 
 
 

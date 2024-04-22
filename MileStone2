@@ -1,0 +1,30 @@
+#toknization 
+
+
+
+
+import csv
+import nltk 
+from nltk.tokenize import word_tokenize
+
+
+nltk.download('punkt')
+
+# for tokenize each row text
+
+def tokenize_textN(text_row):
+
+   tokens = word_tokenize(text_row)
+   return tokens
+
+# assuming that all data from the csv file are all of type string or putted in a string before tokenization 
+def tokenize_csv_file(csv_file_path,text_column):
+   tokenize_text_array = []
+   with open(csv_file_path, 'r', encoding='utf-8') as file:
+      csv_reader = csv.DictReader(file)
+      for row in csv_reader:
+         text_row = row[text_column]
+         tokens = tokenize_textN(text_row)
+         tokenize_text_array.append(tokens)
+   return tokenize_text_array
+
